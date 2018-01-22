@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/index.css">
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="js/rem.js"></script>
+</head>
+<body style="background-color: #333333;">
+<div class="index">
+    <h2>水平仪</h2>
+    <h3>测试结果仅供参考</h3>
+    <div id="circle" class="circle">
+        <div class="circlez">
+            <div class="point"></div>
+        </div>
+    </div>
+
+</div>
+</body>
+<script>
+    $(function () {
+        var str=""
+        for(var i=0;i<61;i++){
+            str+='<div style="transform: rotate('+i*3+'deg)" class="circles circles'+i+'"></div>'
+        }
+        $('#circle').append(str)
+
+        for(var i=0;i<61;i++){
+            if(i%6==0 && i!=0){
+                $('#circle .circles').eq(i).addClass('red')
+
+            }
+        }
+        $('#circle .circles').eq(60).addClass('red')
+        window.ondevicemotion = function(e) {
+
+            var accGravity = e.accelerationIncludingGravity;
+            var ax = event.accelerationIncludingGravity.x * 5;
+            $('.point').css({
+                transform:'rotate('+Math.abs(ax-90)+'deg)'
+            })
+
+        };
+    })
+</script>
+</html>
